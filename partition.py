@@ -13,17 +13,32 @@ def partition(items, low, high):
 
     """
     set pivot as last element in items
-    for index in range of low to high
-        if item at index is less than or equal to the pivot
-
+    set left pointer equal to low + 1
+    set right pointer equal to high
+    inside a while loop
+        while left is less than or equal to right and items at index right is greater than or equal to pivot
+            decrement right
+        while left is less than or equal to right and items at index left is less than or equal to pivot
+            increment left
+        if left is less than or equal to right
+            swap values of items at index left and items at index right
+        else
+            break the while loop
+    swap values of items at index low and items at index right
+    return right
     """
-    i = low - 1
-    pivot = items[high]
+    pivot = items[low]
+    left = low + 1
+    right = high
 
-    for index in range(low, high):
-        if items[index] <= pivot:
-            i += 1
-            items[i], items[index] = items[index], items[i]
-    
-    items[i + 1], items[high] = items[high], items[i + 1]
-    return i + 1
+    while True:
+        while left <= right and items[right] >= pivot:
+            right -= 1
+        while left <= right and items[left] <= pivot:
+            left += 1
+        if left <= right:
+            items[left], items[right] = items[right], items[left]
+        else:
+            break
+    items[low], items[right] = items[right], items[low]
+    return right
